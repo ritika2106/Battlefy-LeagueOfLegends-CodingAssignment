@@ -5,7 +5,7 @@ var bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(express.static('build'));
+app.use(express.static('lol-frontend/build'));
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
@@ -50,5 +50,5 @@ app.post('/summoner', (req, res) => {
 })
 
 app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+    res.sendFile(path.resolve(__dirname, '/lol-frontend/build', 'index.html'))
 })
