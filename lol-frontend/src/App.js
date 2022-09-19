@@ -1,25 +1,71 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sumName: '',
+      response: []
+    };
+  }
+
+  submitSummoner = async e => {
+    e.preventDefault();
+    let result = await fetch(' http://localhost:3000/summoner', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ sumName: this.state.sumName })
+    });
+
+    let jsonResult = await result.text();
+    jsonResult = JSON.parse(jsonResult);
+    console.log((jsonResult));
+
+    this.setState({ response: jsonResult });
+
+  };
+
+  render() {
+    return (
+      <div className="App">
+        <div className="input-div">
+        <input id="input-text"type="text" placeholder="summoner name here" value={this.state.post} onChange={e => this.setState({ sumName: e.target.value })}></input>
+        <button onClick={this.submitSummoner} id="submit-btn">Submit Name</button>
+        </div>
+        <div className="d-flex-out">
+          
+          {this.state.response.map(el => (
+            <div className="each-card" key={el.id}>
+              <div className="section-div">
+                <p>Ranked Solo</p>
+                <p> {el.daysAgo} days ago </p>
+                <p> {el.victory} </p>
+              </div>
+              <div className="section-div">
+                <img src={el.champImage} alt= {el.championName} className="champ-img"></img>
+                <p id="champ-name">{el.championName}</p>
+              </div>
+              <div className="section-div">
+                <p>{el.kills} / {el.deaths} / {el.assists}</p>
+                <p> {el.kda}:1 KDA </p>
+              </div>
+              <div className="section-div">
+                <p>Level{el.champLevel}</p>
+                <p>{el.totalMinionsKilled} ({el.creepScorePerMinute}) CS</p>
+              </div>
+              <div className="section-div">
+              </div>
+              </div>
+          ))}
+
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
+
+

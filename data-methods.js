@@ -6,6 +6,9 @@ const leagueJs = new LeagueJS(process.env.LEAGUE_API_KEY);
 //passing it separately to each method
 let summoner = ""
 
+//key created for specific summoner in each match per object
+let id = 0;
+
 module.exports = {
 
     /*
@@ -63,9 +66,10 @@ module.exports = {
                 .then((data) => {
                     participantDetail.gameDuration = data.info.gameDuration;
                     participantDetail.daysAgo = Math.floor(((data.info.gameEndTimestamp / 1000 / 60 / 60) % 24) / 24);
-
+                    id++;
                     data.info['participants'].forEach(el => {
                         if (el.summonerName === summoner) {
+                            participantDetail.id = id;
                             participantDetail.victory = (el.win) ? "VICTORY" : "DEFEAT"
                             participantDetail.summonerName = el.summonerName;
                             participantDetail.championName = el.championName;
@@ -74,7 +78,9 @@ module.exports = {
                             participantDetail.deaths = el.deaths;
                             participantDetail.assists = el.assists;
                             participantDetail.totalMinionsKilled = el.totalMinionsKilled;
-                            participantDetail.kda = el.challenges.kda;
+                            participantDetail.creepScorePerMinute = ((el.totalMinionsKilled) / ((participantDetail.gameDuration) / 60)).toFixed(1);
+                            el.challenges.kda = (Math.round(el.challenges.kda * 100) / 100).toFixed(2);
+                            participantDetail.kda = ((el.challenges.kda) == 1.00) ? "Perfect KDA" : el.challenges.kda
                             participantDetail.items = [];
                             for (let i = 0; i < 7; i++) {
                                 let itemNum = "item" + i;
@@ -87,7 +93,7 @@ module.exports = {
                                 participantDetail.spells.push(el[spell]);
                             }
                             participantDetail.perks = el.perks.statPerks;
-                            participantDetail.champImage = "/images/" + el.championName + ".png"
+                            participantDetail.champImage = "/champs/" + el.championName + ".png"
                         }
                     })
                     return resolve(participantDetail)

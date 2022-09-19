@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.d-flex-out{
+  display: flex;
+  flex-direction: column; 
+  padding-top: 10px;
+}
+
+.each-card{
+  display: flex;
+  flex-direction: row;
+}
+
+.champ-img{
+  border-radius: 50%;
+  flex: 1;
+  aspect-ratio: 1.5;
+}
+
+.section-div{
+  padding-left: 20px;
+}
+
+#name{
+  justify-content: center;
+}
+
+#input-text{
+  justify-items: center;
+  border-radius: 2%;
+}
+
+#input-btn{
+  justify-items: center;
+  padding-left: 10px;
+}
+
+.input-div{
+  justify-content: center;
+  justify-items: center;
+  padding-left: 30px;
+  padding-top: 30px;
+}
