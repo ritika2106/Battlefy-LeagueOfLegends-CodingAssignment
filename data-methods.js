@@ -87,6 +87,7 @@ module.exports = {
                                 participantDetail.spells.push(el[spell]);
                             }
                             participantDetail.perks = el.perks.statPerks;
+                            participantDetail.champImage = "/images/" + el.championName + ".png"
                         }
                     })
                     return resolve(participantDetail)

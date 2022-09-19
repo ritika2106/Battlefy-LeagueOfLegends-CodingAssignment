@@ -2,6 +2,7 @@ const dataMethods = require("./data-methods.js");
 const express = require("express");
 const cors = require("cors");
 var bodyParser = require("body-parser")
+const path = require("path")
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -10,6 +11,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 app.use(cors());
+
+//serving images from the server
+app.use('/static', express.static(path.join(__dirname, '/images')))
+
 
 app.listen(PORT, () => {
     console.log("Server running and listening for requests!");
