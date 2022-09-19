@@ -2,7 +2,6 @@ const dataMethods = require("./data-methods.js");
 const express = require("express");
 const cors = require("cors");
 var bodyParser = require("body-parser")
-const path = require("path")
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -17,9 +16,9 @@ app.listen(PORT, () => {
     console.log("Server running and listening for requests!");
 })
 
-app.get('/read', (req, res) => {
-    res.send({ read: "Go to the home page to enter your summoner name and view your LoL game statistics!"});
-})
+// app.get('/read', (req, res) => {
+//     res.send({ read: "Go to the home page to enter your summoner name and view your LoL game statistics!"});
+// })
 
 app.post('/summoner', (req, res) => {
     //console.log("node request body: ", req.body);
