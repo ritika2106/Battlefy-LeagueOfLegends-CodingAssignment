@@ -5,11 +5,13 @@ class App extends Component {
     super(props);
     this.state = {
       sumName: '',
+      loadingText: 'Your stats will be displayed here',
       response: []
     };
   }
 
   submitSummoner = async e => {
+    this.setState({loadingText: "Loading data.."})
     e.preventDefault();
     let result = await fetch(' http://localhost:3000/summoner', {
       method: 'POST',
@@ -22,8 +24,9 @@ class App extends Component {
     let jsonResult = await result.text();
     jsonResult = JSON.parse(jsonResult);
     console.log((jsonResult));
-
+    //this.setState({loadingText: (jsonResult === "API failed, try again" ? "" : "No data retreived from that name, try again please")}) 
     this.setState({ response: jsonResult });
+    this.setState({loadingText: ""})
 
   };
 
@@ -34,6 +37,7 @@ class App extends Component {
         <input id="input-text"type="text" placeholder="summoner name here" value={this.state.post} onChange={e => this.setState({ sumName: e.target.value })}></input>
         <button onClick={this.submitSummoner} id="submit-btn">Submit Name</button>
         </div>
+        <p id="loading">{this.state.loadingText}</p>
         <div className="d-flex-out">
           
           {this.state.response.map(el => (

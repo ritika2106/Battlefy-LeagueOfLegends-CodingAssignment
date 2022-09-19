@@ -34,17 +34,17 @@ app.post('/summoner', (req, res) => {
                         })
                         .catch((err) => {
                             console.log("getAllMatchesSummonerDetails API failed with error: ", err);
-                            res.send("API failed with error: ", err);
+                            res.send("API failed, try again");
                         })
                 })
                 .catch((err) => {
                     console.log("getAllMatchesPlayedBySummoner API failed with error: ", err);
-                    res.send("API failed with error: ", err);
+                    res.send("API failed, try again");
                 })
         })
         .catch((err) => {
             console.log("getIdByName API failed with error: ", err);
-            res.send("API failed with error: ", err);
+            res.send("API failed, try again");
         })
     }
     else{
