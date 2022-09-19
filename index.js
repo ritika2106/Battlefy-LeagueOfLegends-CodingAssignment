@@ -5,11 +5,11 @@ var bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+app.use(express.static('build'));
 
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(express.static('build'));
 app.listen(PORT, () => {
     console.log("Server running and listening for requests!");
 })
