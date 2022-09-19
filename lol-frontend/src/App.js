@@ -13,7 +13,7 @@ class App extends Component {
   submitSummoner = async e => {
     this.setState({loadingText: "Loading data.."})
     e.preventDefault();
-    let result = await fetch(' http://localhost:3000/summoner', {
+    let result = await fetch("http://localhost:3000/summoner", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

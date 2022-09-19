@@ -1,6 +1,6 @@
 const dataMethods = require("./data-methods.js");
 const express = require("express");
-const cors = require("cors");
+const path = require("path");
 var bodyParser = require("body-parser")
 const PORT = process.env.PORT || 3000;
 
@@ -9,9 +9,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(cors());
-
-
+app.use(express.static('build'));
 app.listen(PORT, () => {
     console.log("Server running and listening for requests!");
 })
@@ -51,3 +49,6 @@ app.post('/summoner', (req, res) => {
     }
 })
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'build', 'index.html'))
+})
