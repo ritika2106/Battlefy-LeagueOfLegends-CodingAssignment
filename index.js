@@ -12,9 +12,6 @@ app.use(bodyParser.json())
 
 app.use(cors());
 
-//serving images from the server
-app.use('/static', express.static(path.join(__dirname, '/images')))
-
 
 app.listen(PORT, () => {
     console.log("Server running and listening for requests!");
